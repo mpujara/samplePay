@@ -1,1 +1,2 @@
-web: play restart -Dhttp.port=${PORT} ${JAVA_OPTS}
+web: play run --http.port=$PORT $PLAY_OPTS
+
