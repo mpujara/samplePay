@@ -9,7 +9,7 @@ public class Account extends Controller {
         if (id == null || id.trim().length() == 0) {
             render();
         } else {
-            renderTemplate("account/" + id);
+            renderTemplate("/app/views/Account/" + id);
         }
     }
     
@@ -22,7 +22,7 @@ public class Account extends Controller {
             String password = params.get("password");
 
             if (username == null || password == null) {
-                renderTemplate("account/login.html");
+                renderTemplate("/app/views/Account/login.html");
             } else {
                 Logger.info("processing login for username " + username);
                 session.put("username", username);
