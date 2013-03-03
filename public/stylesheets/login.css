@@ -1,0 +1,28 @@
+html * {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+div {
+    background: -moz-linear-gradient(center top , rgba(253, 253, 253, 0.8), rgba(248, 248, 248, 0.98)) repeat-x scroll 0 0 rgba(248, 248, 248, 0.98);
+    border: 2px solid #CCCCCC;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    color: #777777;
+    cursor: pointer;
+    font-family: "Helvetica Neue",Helvetica,sans-serif;
+    font-size: 13px;
+    line-height: 1;
+    margin: 0;
+    opacity: 0.9;
+    padding: 7px 0;
+    text-align: center;
+    z-index: 1000;
+}
+div.north {
+    border-radius: 0 0 4px 4px;
+    border-top: 0 none;
+}
+div.south {
+    border-bottom: 0 none;
+    border-radius: 4px 4px 0 0;
+}

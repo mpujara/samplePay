@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h2>Login</h2>
+
+<p>You are successfully logged in to Sample Pay.</p>
+
+<head>
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap.min.css'}">
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap-responsive.min.css'}">
+  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/theme.css'}">
+</head>
+
+<body>
+
+  <form class="form-horizontal" action='login/process' id="loginForm" method="POST">
+    <fieldset>
+      <div id="legend">
+	<legend class="">Make a payment to activate your account</legend>
+      </div>
+      <div class="control-group">
+	<!-- Credit Card Number -->
+	<label class="control-label" for="ccnumber">Credit Card #</label>
+	<div class="controls">
+	  <input type="text" id="ccnumber" name="ccnumber" placeholder="" class="input-xlarge">
+	</div>
+      </div>
+      
+      <div class="control-group">
+	<!-- Button -->
+	<div class="controls">
+	  <button class="btn btn-success">Submit</button>
+	</div>
+      </div>
+    </fieldset>
+  </form>
+
+</body>
