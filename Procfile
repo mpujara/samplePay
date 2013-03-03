@@ -1,1 +1,1 @@
-web: target/start -Dhttp.port=${PORT} ${JAVA_OPTS}
+web: play restart -Dhttp.port=${PORT} ${JAVA_OPTS}
