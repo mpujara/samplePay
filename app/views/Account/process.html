@@ -1,38 +1,127 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<h2>Login</h2>
+<h2 class="page-header">Make Payment</h2>
 
-<p>You are successfully logged in to Sample Pay.</p>
+<p class="nav-header">You are successfully logged in to Sample Pay.</p>
 
 <head>
-  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap.min.css'}">
-  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap-responsive.min.css'}">
-  <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/theme.css'}">
+  <!-- The required Stripe lib -->
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+ 
+  <!-- jQuery is used only for this example; it isn't required to use Stripe -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ 
+  <script type="text/javascript">
+    // This identifies your website in the createToken call below
+    Stripe.setPublishableKey('pk_test_HrtlvMUT5VaUcpOHXDyz4KEB');
+ 
+    var stripeResponseHandler = function(status, response) {
+    var $form = $('#payment-form');
+    var chargeAmount = $('.charge-amount').val();
+ 
+      if (response.error) {
+        // Show the errors on the form
+        $form.find('.payment-errors').text(response.error.message);
+        $form.find('button').prop('disabled', false);
+      } else {
+        // token contains id, last4, and card type
+        var token = response.id;
+        // Insert the token into the form so it gets submitted to the server
+        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        $form.append($('<input type="hidden" name="amount" />').val(chargeAmount));
+        // and re-submit
+        $form.get(0).submit();
+      }
+    };
+ 
+$(function() {
+  $('#payment-form').submit(function(event) {
+    // Disable the submit button to prevent repeated clicks
+    $('.submit-button').prop('disabled', true);
+
+    Stripe.createToken({
+      number: $('.card-number').val(),
+      cvc: $('.card-cvc').val(),
+      exp_month: $('.card-expiry-month').val(),
+      exp_year: $('.card-expiry-year').val()
+    }, stripeResponseHandler);
+
+    // Prevent the form from submitting with the default action
+    return false;
+  });
+});
+
+    jQuery(function($) {
+      $('#payment-form').submit(function(e) {
+        var $form = $(this);
+ 
+        // Disable the submit button to prevent repeated clicks
+        $form.find('button').prop('disabled', true);
+ 
+        Stripe.createToken($form, stripeResponseHandler);
+ 
+        // Prevent the form from submitting with the default action
+        return false;
+      });
+    });
+  </script>
+
 </head>
 
 <body>
 
-  <form class="form-horizontal" action='login/process' id="loginForm" method="POST">
-    <fieldset>
-      <div id="legend">
-	<legend class="">Make a payment to activate your account</legend>
-      </div>
-      <div class="control-group">
-	<!-- Credit Card Number -->
-	<label class="control-label" for="ccnumber">Credit Card #</label>
-	<div class="controls">
-	  <input type="text" id="ccnumber" name="ccnumber" placeholder="" class="input-xlarge">
-	</div>
-      </div>
-      
-      <div class="control-group">
-	<!-- Button -->
-	<div class="controls">
-	  <button class="btn btn-success">Submit</button>
-	</div>
-      </div>
-    </fieldset>
-  </form>
 
+  <form class="form-horizontal" action="payment" method="POST" id="payment-form">
+
+    <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="amount">Amount (USD)</label>
+      <div class="controls">
+	<input type="text" id="amount" size="20" autocomplete="off" class="charge-amount input-medium"/>
+      </div>
+    </div>
+    </fieldset>
+
+    <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="cardNumber">Card Number</label>
+      <div class="controls">
+	<input type="text" id="cardNumber" size="20" autocomplete="off" class="card-number input-medium"/>
+      </div>
+    </div>
+    </fieldset>
+    
+    <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="cvc">CVC</label>
+      <div class="controls">
+	<input type="text" id="cvc" size="4" autocomplete="off" class="card-cvc input-small"/>
+      </div>
+    </div>
+    <fieldset>
+    
+    <fieldset>
+    <div class="form-row">
+      <label class="control-label" for="cardExpiryMonth">Expiration (MM/YYYY)</label>
+      <div class="controls">
+	<input type="text" id="cardExpiryMonth" size="2" class="card-expiry-month input-small"/> / 
+	<input type="text" id="cardExpiryYear" size="4" class="card-expiry-year input-small"/>
+      </div>
+    </div>
+    </fieldset>
+
+    <br/>
+
+    <fieldset>
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+	<button type="submit" class="btn btn-success submit-button">Submit Payment</button>
+      </div>
+    </div>
+    </fieldset>
+    
+  </form>
+  
 </body>

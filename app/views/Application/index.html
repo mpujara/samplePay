@@ -1,10 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<h1>Sample Payment Application</h1>
+<h1 class="hero-unit h1">Sample Payment Application</h1>
 
-<p>This is sample payment application for integrating Play, PostgresSql on Heroku Platform</p>
+<p class="nav-header">Tools Used: Play 1.2.5, Postgresql 9.1, Stripe Payment Gateway, Git, Heroku</p>
 
 <body>
-  <a class="homepage-link" href="Account/login.html">Sign In</a>
+  <p class="nav-list">
+    <a class="homepage-link" href="Account/login.html">Sign In</a>
+    <br/><br/>
+    <a class="homepage-link" href="Account/payments.html">Payments Received</a>
+  </p>
 </body>
