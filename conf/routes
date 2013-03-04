@@ -5,7 +5,8 @@
 # Home page
 GET     /                                       Application.index
 GET     /Account/{id}                           Account.show
-POST    /Account/{id}                           Account.process
+POST    /Account/{id}                           Account.{id}
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
