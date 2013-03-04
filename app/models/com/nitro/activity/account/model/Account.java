@@ -9,7 +9,7 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.GenericModel;
 
-@javax.persistence.Entity (name = "public.'Account'")
+@javax.persistence.Entity (name = "Account")
 public class Account extends GenericModel {
     
     private static final long serialVersionUID = -7335615128658466071L;
