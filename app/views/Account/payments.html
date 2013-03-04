@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h2 class="nav-header">List of Payments Received</h2>
+
+<body>
+  #{if charges != null && charges.size() > 0}
+
+  <p class="nav-list">
+    <table class="table-bordered">
+      <tr class="table-bordered tr">
+	<th class="table-bordered th">Token</th>
+	<th class="table-bordered th">Card Number</th>
+	<th class="table-bordered th">Card Expiry</th>
+	<th class="table-bordered th">Amount</th>
+	<th class="table-bordered th">Fee</th>
+	<th class="table-bordered th">Description</th>
+      </tr>
+    #{list items:charges, as:'charge'}
+      <tr class="table-bordered tr">
+	<td class="table-bordered td"><a class="homepage-link" href="Account/payments/${charge.id}">${charge.id}</a></td>
+	<td class="table-bordered td">${charge.card.last4}</td>
+	<td class="table-bordered td">${charge.card.expMonth} / ${charge.card.expYear}</td>
+	<td class="table-bordered td">${charge.amount}</td>
+	<td class="table-bordered td">${charge.fee}</td>
+	<td class="table-bordered td">${charge.description}</td>
+      </tr>
+    #{/list}
+    <table>
+  </p>
+  #{else}
+  <p class="nav-header">No payment information found!</p>
+  #{/else}
+  #{/if}
+</body>
