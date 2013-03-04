@@ -12,6 +12,8 @@ public interface AccountConstants {
     
     String LOGIN_URI = "Account/login.html";
     
+    String SIGNUP_URI = "Account/signup.html";
+    
     String PROCESS_URI= "Account/process.html";
     
     String THANKYOU_URI = "Account/thankyou.html";

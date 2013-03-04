@@ -51,9 +51,37 @@ public class Account extends Controller implements AccountConstants {
      * Action Mapping for all POST requests
      * @param id the action Id
      */
+    public static void signup(String id) {
+        if (id == null || id.trim().length() == 0) {
+            renderTemplate(SIGNUP_URI);
+        } else {
+            String username = params.get(USERNAME);
+            String password = params.get(PASSWORD);
+
+            if (username == null || password == null) {
+                renderTemplate(SIGNUP_URI);
+            } else {
+                Logger.info("processing signup for username " + username);
+                models.com.nitro.activity.account.model.Account account = new models.com.nitro.activity.account.model.Account();
+                account.setUsername(username);
+                account.setPassword(password);
+                if (account.create()) {
+                    session.put(USERNAME, username);
+                    renderTemplate(PROCESS_URI);
+                } else {
+                    renderTemplate(SIGNUP_URI);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Action Mapping for all POST requests
+     * @param id the action Id
+     */
     public static void process(String id) {
         if (id == null || id.trim().length() == 0) {
-            render();
+            renderTemplate(LOGIN_URI);
         } else {
             String username = params.get(USERNAME);
             String password = params.get(PASSWORD);
@@ -79,7 +107,7 @@ public class Account extends Controller implements AccountConstants {
      */
     public static void payment(String id) {
         if (id == null || id.trim().length() == 0) {
-            render();
+            renderTemplate(PROCESS_URI);
         } else {
             String token = params.get(STRIPE_TOKEN);
             String amountStr = params.get(AMOUNT);
